@@ -9,7 +9,7 @@ namespace MemoryLeaker
         public void PublishEvents()
         {
             var guid = Guid.NewGuid();
-            Console.WriteLine($"{nameof(EventPublisher)}: PublishEvents sends {guid}");
+            Logger.WriteLine($"{nameof(EventPublisher)}: PublishEvents sends {{{guid}}}");
             this.SomeEvent?.Invoke(this, guid);
         }
     }

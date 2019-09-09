@@ -6,6 +6,8 @@ namespace MemoryLeaker
     {
         private static void Main(string[] args)
         {
+            Logger.IsEnabled = true;
+
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
 
@@ -35,7 +37,6 @@ namespace MemoryLeaker
             // Force collection
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
 
             Console.ReadKey();
         }

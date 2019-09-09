@@ -22,7 +22,7 @@ namespace MemoryLeaker
         {
             this.collectedGuids.Add(guid);
 
-            Console.WriteLine($"{nameof(EventSubscriber)} {id}: OnSomeEvent received {guid}");
+            Logger.WriteLine($"{nameof(EventSubscriber)} {id}: OnSomeEvent received {{{guid}}}");
         }
 
         public void Dispose()
