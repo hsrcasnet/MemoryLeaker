@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace MemoryLeaker
 {
-    internal class EventSubscriber : IDisposable
+    internal class EventSubscriber
     {
         private readonly int id;
         private readonly ICollection<Guid> collectedGuids;
@@ -15,6 +14,10 @@ namespace MemoryLeaker
             this.collectedGuids = new List<Guid>();
             this.id = id;
             this.eventPublisher = eventPublisher;
+        }
+
+        public void Subscribe()
+        {
             this.eventPublisher.SomeEvent += this.OnSomeEvent;
         }
 
@@ -22,10 +25,10 @@ namespace MemoryLeaker
         {
             this.collectedGuids.Add(guid);
 
-            Logger.WriteLine($"{nameof(EventSubscriber)} {id}: OnSomeEvent received {{{guid}}}");
+            Logger.WriteLine($"{nameof(EventSubscriber)} {this.id}: OnSomeEvent received {{{guid}}}");
         }
 
-        public void Dispose()
+        public void Unsubscribe()
         {
             this.eventPublisher.SomeEvent -= this.OnSomeEvent;
         }

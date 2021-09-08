@@ -11,32 +11,36 @@ namespace MemoryLeaker
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
 
-            const bool unsubscribe = false;
-            const int subscriptions = 1000;
+            // DEMO: For the purpose of this demo, we're happy with 10 subscribers
+            // --> Increase the number to 100 or 1000 and see how quickly memory is allocated (and never released again)!
+            const int numberOfSubscribers = 10;
 
-            Console.WriteLine($"subscriptions: {subscriptions}");
+            Console.WriteLine($"subscriptions: {numberOfSubscribers}");
 
-            var eventPublisher = new EventPublisher();
+            var publisher = new EventPublisher();
 
-            for (var i = 0; i < subscriptions; i++)
+            for (var i = 0; i < numberOfSubscribers; i++)
             {
-                var eventSubscriber = new EventSubscriber(eventPublisher, i);
+                var subscriber = new EventSubscriber(publisher, i);
+                subscriber.Subscribe();
 
-                eventPublisher.PublishEvents();
+                publisher.PublishEvents();
 
-                if (unsubscribe)
-                {
-                    eventSubscriber.Dispose();
-                }
+                // DEMO: What happens if we forget to unsubscribe from event subscriptions?
+                // --> Comment-out following line of code in order to produce a memory leak
+                // --> Uncomment the following line of code in order to properly unsubscribe all event handlers
+                //subscriber.Unsubscribe();
 
-                eventSubscriber = null;
-
+                subscriber = null;
                 Console.WriteLine($"------------");
             }
 
-            // Force collection
+            // DEMO: Force GC to collect unused memory
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+            Console.WriteLine();
+            Console.WriteLine($"GC.Collect finished");
 
             Console.ReadKey();
         }
