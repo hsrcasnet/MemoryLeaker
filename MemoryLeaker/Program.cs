@@ -15,6 +15,7 @@ namespace MemoryLeaker
             // --> Increase the number to 100 or 1000 and see how quickly memory is allocated (and never released again)!
             const int numberOfSubscribers = 10;
 
+            Console.WriteLine();
             Console.WriteLine($"subscriptions: {numberOfSubscribers}");
 
             var publisher = new EventPublisher();
@@ -27,9 +28,9 @@ namespace MemoryLeaker
                 publisher.PublishEvents();
 
                 // DEMO: What happens if we forget to unsubscribe from event subscriptions?
-                // --> Remove following method Unsubscribe() in order to produce a memory leak
-                // --> Add method Unsubscribe() in order to properly unsubscribe all event handlers
-                subscriber.Unsubscribe();
+                // --> Remove following method subscriber.Unsubscribe() in order to produce a memory leak
+                // --> Call method subscriber.Unsubscribe() in order to properly unsubscribe all event handlers
+                //subscriber.Unsubscribe();
 
                 subscriber = null;
                 Console.WriteLine($"------------");
