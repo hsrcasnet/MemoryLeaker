@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MemoryLeaker
 {
@@ -10,7 +8,7 @@ namespace MemoryLeaker
 
         public static void WriteLine(string message)
         {
-            if(IsEnabled)
+            if (IsEnabled)
             {
                 Console.WriteLine(message);
             }
