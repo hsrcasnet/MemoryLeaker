@@ -27,15 +27,15 @@ namespace MemoryLeaker
                 publisher.PublishEvents();
 
                 // DEMO: What happens if we forget to unsubscribe from event subscriptions?
-                // --> Comment-out following line of code in order to produce a memory leak
-                // --> Uncomment the following line of code in order to properly unsubscribe all event handlers
-                //subscriber.Unsubscribe();
+                // --> Remove following method Unsubscribe() in order to produce a memory leak
+                // --> Add method Unsubscribe() in order to properly unsubscribe all event handlers
+                subscriber.Unsubscribe();
 
                 subscriber = null;
                 Console.WriteLine($"------------");
             }
 
-            // DEMO: Force GC to collect unused memory
+            // DEMO: Force GC to collect unused memory (Used for demo purposes only!)
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
